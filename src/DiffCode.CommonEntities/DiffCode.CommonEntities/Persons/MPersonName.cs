@@ -1,5 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Enums;
+﻿using DiffCode.CommonEntities.Enums;
 
 namespace DiffCode.CommonEntities.Persons;
 
@@ -8,10 +7,25 @@ namespace DiffCode.CommonEntities.Persons;
 /// </summary>
 public record MPersonName : BasePersonName
 {
-  public MPersonName(MFirstPart firstNamePart, MMidPart midNamePart, MLastPart lastNamePart) : base(firstNamePart, midNamePart, lastNamePart)
+  public MPersonName(string input, PartsFactory partsFactory) : base(input, partsFactory)
   {
 
   }
+
+  public MPersonName(MFirstPart firstNamePart, MMidPart midNamePart, MLastPart lastNamePart) : base(firstNamePart, midNamePart, lastNamePart)
+  {
+    
+  }
+
+
+
+
+  /// <summary>
+  /// Фабрика для создания моделей личных данных мужчин (ФИО, пол) из указанной строки.
+  /// </summary>
+  /// <param name="str">Строка с именем, отчеством и фамилией в именительном падеже.</param>
+  /// <returns></returns>
+  public new delegate MPersonName Factory(string str);
 
 
 

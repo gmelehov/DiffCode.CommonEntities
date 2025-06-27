@@ -1,5 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Enums;
+﻿using DiffCode.CommonEntities.Enums;
 using System.Diagnostics;
 
 namespace DiffCode.CommonEntities.Persons;

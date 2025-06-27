@@ -1,17 +1,34 @@
-﻿using DiffCode.CommonEntities.Units.Date;
-
-
-namespace DiffCode.CommonEntities.Abstractions;
+﻿namespace DiffCode.CommonEntities.Abstractions;
 
 /// <summary>
 /// <para>День/дата.</para>
 /// </summary>
-public abstract record DateUnits : BaseUnits<DateUnits, DateMeasure.Unit>
+public abstract record DateUnits : BaseUnits<DateUnits, DateUnits.Unit>
 {
-  protected DateUnits(DateMeasure.Unit units, string noun) : base(units, noun)
+  protected DateUnits(DateUnits.Unit units, string noun) : base(units, noun)
   {
 
   }
 
 
+
+
+
+
+  /// <summary>
+  /// <para>Типы дат/дней.</para>
+  /// </summary>
+  public enum Unit
+  {
+
+    /// <summary>
+    /// <para>День недели.</para>
+    /// </summary>
+    DayOfWeek,
+    /// <summary>
+    /// <para>День (число) месяца.</para>
+    /// </summary>
+    DayOfMonth,
+
+  }
 }

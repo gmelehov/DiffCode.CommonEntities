@@ -1,13 +1,11 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-
-namespace DiffCode.CommonEntities.Units.Time;
+﻿namespace DiffCode.CommonEntities.Units.Time;
 
 /// <summary>
 /// Единица измерения: неделя.
 /// </summary>
-public record Week : TimeUnits
+internal record Week : TimeUnits
 {
-  public Week() : base(TimeMeasure.Unit.Week, "неделя", "нед.", "нед.")
+  public Week() : base(TimeUnits.Unit.Week, "неделя", "нед.", "нед.")
   {
 
   }

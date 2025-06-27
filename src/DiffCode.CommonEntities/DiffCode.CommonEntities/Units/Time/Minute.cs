@@ -1,13 +1,11 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-
-namespace DiffCode.CommonEntities.Units.Time;
+﻿namespace DiffCode.CommonEntities.Units.Time;
 
 /// <summary>
 /// Единица измерения: минута.
 /// </summary>
-public record Minute : TimeUnits
+internal record Minute : TimeUnits
 {
-  public Minute() : base(TimeMeasure.Unit.Minute, "минута", "мин.", "мин.")
+  public Minute() : base(TimeUnits.Unit.Minute, "минута", "мин.", "мин.")
   {
 
   }

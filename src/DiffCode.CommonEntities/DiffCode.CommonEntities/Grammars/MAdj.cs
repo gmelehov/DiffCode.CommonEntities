@@ -1,5 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Cases;
+﻿using DiffCode.CommonEntities.Cases;
 using DiffCode.CommonEntities.Enums;
 
 namespace DiffCode.CommonEntities.Grammars;
@@ -11,7 +10,7 @@ public record MAdj : BaseGrammar
 {
   public MAdj(string end, NOM nom, GEN gen, DAT dat, ACC acc, INS ins, LOC loc) : base(end, nom, gen, dat, acc, ins, loc)
   {
-
+    
   }
 
   public MAdj(string end, bool? isAnim, NOM nom, GEN gen, DAT dat, ACC acc, INS ins, LOC loc) : base(end, isAnim, nom, gen, dat, acc, ins, loc)

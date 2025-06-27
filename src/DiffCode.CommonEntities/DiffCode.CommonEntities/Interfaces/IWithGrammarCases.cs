@@ -1,5 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Enums;
+﻿using DiffCode.CommonEntities.Enums;
 
 namespace DiffCode.CommonEntities.Interfaces;
 
@@ -10,6 +9,15 @@ namespace DiffCode.CommonEntities.Interfaces;
 public interface IWithGrammarCases
 {
 
+
+  /// <summary>
+  /// Индексатор для получения значения а нужном грамматическом падеже.
+  /// </summary>
+  /// <param name="gCase"></param>
+  /// <returns></returns>
+  string this[GCase gCase] { get; }
+
+
   /// <summary>
   /// Список склонений по грамматическим падежам.
   /// </summary>
@@ -19,5 +27,24 @@ public interface IWithGrammarCases
   /// Категория склоняемой сущности.
   /// </summary>
   Category Category { get; }
+
+
+
+  string Nom {  get; }
+
+
+  string Gen {  get; }
+
+
+  string Dat {  get; }
+
+
+  string Acc {  get; }
+
+
+  string Ins { get; }
+
+
+  string Loc { get; }
 
 }

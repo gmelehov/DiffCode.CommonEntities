@@ -1,13 +1,11 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-
-namespace DiffCode.CommonEntities.Units.Time;
+﻿namespace DiffCode.CommonEntities.Units.Time;
 
 /// <summary>
 /// Единица измерения: час.
 /// </summary>
-public record Hour : TimeUnits
+internal record Hour : TimeUnits
 {
-  public Hour() : base(TimeMeasure.Unit.Hour, "час", "ч.", "ч.")
+  public Hour() : base(TimeUnits.Unit.Hour, "час", "ч.", "ч.")
   {
 
   }

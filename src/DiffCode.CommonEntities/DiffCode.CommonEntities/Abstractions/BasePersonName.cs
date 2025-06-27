@@ -1,6 +1,5 @@
 ﻿using DiffCode.CommonEntities.Cases;
 using DiffCode.CommonEntities.Enums;
-using DiffCode.CommonEntities.Interfaces;
 using System.Diagnostics;
 
 
@@ -12,12 +11,59 @@ namespace DiffCode.CommonEntities.Abstractions;
 [DebuggerDisplay("{DisplayAs}")]
 public abstract record BasePersonName : INamedWithGrammarCases
 {
+  [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+  protected string _input;
+
+  [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+  protected readonly PartsFactory _partsFactory;
+
+  [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+  protected readonly BaseFirstNamePart _firstNamePart;
+
+  [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+  protected readonly BaseMidNamePart _midNamePart;
+
+  [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+  protected readonly BaseLastNamePart _lastNamePart;
+
+
+
+  protected BasePersonName(string input)
+  {
+    _input = input;
+  }
+
+  protected BasePersonName(string input, PartsFactory partsFactory)
+  {
+    _input = input;
+    _partsFactory = partsFactory;
+  }
+
   protected BasePersonName(BaseFirstNamePart firstNamePart, BaseMidNamePart midNamePart, BaseLastNamePart lastNamePart)
   {
-    FirstName = firstNamePart;
-    MidName = midNamePart;
-    LastName = lastNamePart;
+    _firstNamePart = firstNamePart;
+    _midNamePart = midNamePart;
+    _lastNamePart = lastNamePart;
   }
+
+
+
+
+
+
+
+  /// <summary>
+  /// Фабрика для создания моделей личных данных (ФИО, пол) из указанной строки.
+  /// </summary>
+  /// <param name="str">Строка с именем, отчеством и фамилией в именительном падеже.</param>
+  /// <returns></returns>
+  public delegate BasePersonName Factory(string str);
+
+  /// <summary>
+  /// Фабрика для создания списка частей личного имени (имя, отчество, фамилия).
+  /// </summary>
+  /// <returns></returns>
+  public delegate Func<string, IEnumerable<BasePersonNamePart>> PartsFactory();
 
 
 
@@ -94,29 +140,37 @@ public abstract record BasePersonName : INamedWithGrammarCases
     NamePartsOrder.LFM =>
     !string.IsNullOrWhiteSpace(GetMidNameCase(gCase))
     ?
-    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)} {GetMidNameCase(gCase).Substring(0, 1)}"
+    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)}. {GetMidNameCase(gCase).Substring(0, 1)}."
     :
-    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)}",
+    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)}.",
 
 
     NamePartsOrder.FML =>
     !string.IsNullOrWhiteSpace(GetMidNameCase(gCase))
     ?
-    $"{GetFirstNameCase(gCase).Substring(0, 1)} {GetMidNameCase(gCase).Substring(0, 1)} {GetLastNameCase(gCase)}"
+    $"{GetFirstNameCase(gCase).Substring(0, 1)}. {GetMidNameCase(gCase).Substring(0, 1)}. {GetLastNameCase(gCase)}"
     :
-    $"{GetFirstNameCase(gCase).Substring(0, 1)} {GetLastNameCase(gCase)}",
+    $"{GetFirstNameCase(gCase).Substring(0, 1)}. {GetLastNameCase(gCase)}",
 
 
     _ =>
     !string.IsNullOrWhiteSpace(GetMidNameCase(gCase))
     ?
-    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)} {GetMidNameCase(gCase).Substring(0, 1)}"
+    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)}. {GetMidNameCase(gCase).Substring(0, 1)}."
     :
-    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)}",
+    $"{GetLastNameCase(gCase)} {GetFirstNameCase(gCase).Substring(0, 1)}.",
 
   };
 
 
+
+
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  /// <param name="gCase"></param>
+  /// <returns></returns>
+  public string this[GCase gCase] => Cases.FirstOrDefault(f=>f.GCase == gCase)?.Text;
 
 
 
@@ -128,17 +182,17 @@ public abstract record BasePersonName : INamedWithGrammarCases
   /// <summary>
   /// Ссылка на имя.
   /// </summary>
-  public BaseFirstNamePart FirstName { get; init; }
+  public BaseFirstNamePart FirstName => _firstNamePart ?? (BaseFirstNamePart)(_partsFactory?.Invoke().Invoke(_input).FirstOrDefault(f => f.Part == NamePart.FIRST));
 
   /// <summary>
   /// Ссылка на отчество.
   /// </summary>
-  public BaseMidNamePart MidName { get; init; }
+  public BaseMidNamePart MidName => _midNamePart ?? (BaseMidNamePart)(_partsFactory?.Invoke().Invoke(_input).FirstOrDefault(f => f.Part == NamePart.MID));
 
   /// <summary>
   /// Ссылка на фамилию.
   /// </summary>
-  public BaseLastNamePart LastName { get; init; }
+  public BaseLastNamePart LastName => _lastNamePart ?? (BaseLastNamePart)(_partsFactory?.Invoke().Invoke(_input).FirstOrDefault(f => f.Part == NamePart.LAST));
 
   /// <summary>
   /// <para>Порядок следования частей имени в полном имени.</para>
@@ -183,26 +237,28 @@ public abstract record BasePersonName : INamedWithGrammarCases
     NamePartsOrder.LFM =>
     !string.IsNullOrWhiteSpace(MidName?.Text)
     ?
-    $"{LastName.Text} {FirstName.Text.Substring(0, 1)} {MidName.Text.Substring(0, 1)}"
+    $"{LastName.Text} {FirstName.Text.Substring(0, 1)}. {MidName.Text.Substring(0, 1)}."
     :
-    $"{LastName.Text} {FirstName.Text.Substring(0, 1)}",
+    $"{LastName.Text} {FirstName.Text.Substring(0, 1)}.",
 
 
     NamePartsOrder.FML =>
     !string.IsNullOrWhiteSpace(MidName?.Text)
     ?
-    $"{FirstName.Text.Substring(0, 1)} {MidName.Text.Substring(0, 1)} {LastName.Text}"
+    $"{FirstName.Text.Substring(0, 1)}. {MidName.Text.Substring(0, 1)}. {LastName.Text}"
     :
-    $"{FirstName.Text.Substring(0, 1)} {LastName.Text}",
+    $"{FirstName.Text.Substring(0, 1)}. {LastName.Text}",
 
 
     _ =>
     !string.IsNullOrWhiteSpace(MidName?.Text)
     ?
-    $"{LastName.Text} {FirstName.Text.Substring(0, 1)} {MidName.Text.Substring(0, 1)}"
+    $"{LastName.Text} {FirstName.Text.Substring(0, 1)}. {MidName.Text.Substring(0, 1)}."
     :
-    $"{LastName.Text} {FirstName.Text.Substring(0, 1)}",
+    $"{LastName.Text} {FirstName.Text.Substring(0, 1)}.",
   };
+
+
 
 
   /// <summary>
@@ -232,4 +288,17 @@ public abstract record BasePersonName : INamedWithGrammarCases
   [DebuggerBrowsable(DebuggerBrowsableState.Never)]
   private string DisplayAs => $"{GetFullForm(GCase.NOM)}";
 
+
+
+  public string Nom => this[GCase.NOM];
+
+  public string Gen => this[GCase.GEN];
+
+  public string Dat => this[GCase.DAT];
+
+  public string Acc => this[GCase.ACC];
+
+  public string Ins => this[GCase.INS];
+
+  public string Loc => this[GCase.LOC];
 }

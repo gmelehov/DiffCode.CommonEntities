@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="U">Тип единицы измерения.</typeparam>
 /// <typeparam name="E">Тип перечисления единицы измерения.</typeparam>
-public interface IUnits<out U, out E> : INamed where E : struct, Enum
+public interface IUnits<out U, out E> : INamed, IWithSymbol where E : struct, Enum
 {
 
 

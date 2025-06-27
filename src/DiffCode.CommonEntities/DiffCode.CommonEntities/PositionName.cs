@@ -1,6 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Enums;
-using DiffCode.CommonEntities.Services;
+﻿using DiffCode.CommonEntities.Enums;
 using System.Diagnostics;
 
 
@@ -10,25 +8,39 @@ namespace DiffCode.CommonEntities;
 /// Типизированное название должности подписанта.
 /// </summary>
 [DebuggerDisplay("{Full}")]
-public record PositionName : BaseTypedEntity
+public record PositionName : BaseWithGrammarCases
 {
-  public PositionName(Func<string, IEnumerable<BaseGrammar>> grammarsFunc, Func<string> name) : base(grammarsFunc, name)
+  public PositionName() : base()
   {
     
   }
 
+  public PositionName(string name) : base(name)
+  {
 
+  }
+
+  public PositionName(string name, GrammarsFactory func) : base(name, func())
+  {
+
+  }
+
+  
 
 
   /// <summary>
-  /// <inheritdoc/>
+  /// Делегат для создания сущности, регистрируемый в DI.
   /// </summary>
-  public override string Short => null;
+  /// <param name="name"></param>
+  /// <returns></returns>
+  public delegate PositionName Factory(string name);
 
   /// <summary>
-  /// <inheritdoc/>
+  /// Делегат для создания фабрики грамматик для этой сущности, регистрируемый в DI.
   /// </summary>
-  public override string Symbol => null;
+  /// <returns></returns>
+  public delegate Func<string, IEnumerable<BaseGrammar>> GrammarsFactory();
+
 
   /// <summary>
   /// <inheritdoc/>

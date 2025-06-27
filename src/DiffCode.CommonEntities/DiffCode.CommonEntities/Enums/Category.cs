@@ -35,4 +35,6 @@ public enum Category
 
   DigitsName = 7,
 
+  Measured = 8
+
 }

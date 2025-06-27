@@ -1,5 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Cases;
+﻿using DiffCode.CommonEntities.Cases;
 using DiffCode.CommonEntities.Enums;
 
 namespace DiffCode.CommonEntities.Grammars;

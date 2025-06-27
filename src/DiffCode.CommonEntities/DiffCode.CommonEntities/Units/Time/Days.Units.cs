@@ -1,14 +1,11 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Interfaces;
-
-namespace DiffCode.CommonEntities.Units.Time;
+﻿namespace DiffCode.CommonEntities.Units.Time;
 
 /// <summary>
 /// Единица измерения: день.
 /// </summary>
-public record Day : TimeUnits
+internal record Day : TimeUnits
 {
-  public Day() : base(TimeMeasure.Unit.Day, "день", "дн.", "дн.")
+  public Day() : base(TimeUnits.Unit.Day, "день", "дн.", "дн.")
   {
     
   }

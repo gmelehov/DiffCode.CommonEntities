@@ -1,7 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Cases;
-using DiffCode.CommonEntities.Enums;
-using DiffCode.CommonEntities.Services;
+﻿using DiffCode.CommonEntities.Enums;
 using System.Diagnostics;
 
 
@@ -11,29 +8,43 @@ namespace DiffCode.CommonEntities;
 /// Типизированное название стороны-подписанта.
 /// </summary>
 [DebuggerDisplay("{Full}")]
-public record PartyName : BaseTypedEntity
+public record PartyName : BaseWithGrammarCases
 {
-  public PartyName(Func<string, IEnumerable<BaseGrammar>> grammarsFunc, Func<string> name) : base(grammarsFunc, name)
+  public PartyName() : base()
   {
     
+  }
+
+  public PartyName(string name) : base(name)
+  {
+    
+  }
+
+  public PartyName(string name, GrammarsFactory grammarsFactory) : base(name, grammarsFactory())
+  {
+
   }
 
 
 
 
+  /// <summary>
+  /// Делегат для создания сущности, регистрируемый в DI.
+  /// </summary>
+  /// <param name="name"></param>
+  public delegate PartyName Factory(string name);
 
   /// <summary>
-  /// <inheritdoc/>
+  /// Делегат для создания фабрики грамматик для этой сущности, регистрируемый в DI.
   /// </summary>
-  public override string Short => null;
+  /// <returns></returns>
+  public delegate Func<string, IEnumerable<BaseGrammar>> GrammarsFactory();
 
-  /// <summary>
-  /// <inheritdoc/>
-  /// </summary>
-  public override string Symbol => null;
+
 
   /// <summary>
   /// <inheritdoc/>
   /// </summary>
   public override Category Category => Category.PartyName;
+
 }

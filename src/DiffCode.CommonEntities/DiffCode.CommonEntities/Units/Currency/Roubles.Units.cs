@@ -1,6 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Interfaces;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 
 namespace DiffCode.CommonEntities.Units.Currency;
@@ -8,9 +6,9 @@ namespace DiffCode.CommonEntities.Units.Currency;
 /// <summary>
 /// Единица измерения: рубль.
 /// </summary>
-public record Rouble : CurrencyUnits
+internal record Rouble : CurrencyUnits
 {
-  public Rouble() : base(CurrencyMeasure.Unit.Rouble, "рубль", "руб.", "руб.")
+  public Rouble() : base(CurrencyUnits.Unit.Rouble, "рубль", "руб.", "руб.")
   {
     FrUnits = new();
   }

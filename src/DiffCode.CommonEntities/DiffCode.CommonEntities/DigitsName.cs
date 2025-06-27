@@ -1,6 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Enums;
-using DiffCode.CommonEntities.Services;
+﻿using DiffCode.CommonEntities.Enums;
 using System.Diagnostics;
 
 
@@ -16,6 +14,13 @@ public record DigitsName : BaseTypedEntity
   {
     
   }
+
+
+
+
+
+  public delegate Func<int, string, IEnumerable<BaseGrammar>> GrammarsFactory();
+
 
 
 

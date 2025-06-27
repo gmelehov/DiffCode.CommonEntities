@@ -1,7 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-
-
-namespace DiffCode.CommonEntities.Services;
+﻿namespace DiffCode.CommonEntities.Services;
 
 
 public interface IDeclensionService
@@ -39,9 +36,5 @@ public interface IDeclensionService
   /// <param name="input">Строка с основанием полномочий подписанта.</param>
   /// <returns></returns>
   IEnumerable<BaseGrammar> GetAuthoritiesGrammars(string input);
-
-
-
-
   
 }

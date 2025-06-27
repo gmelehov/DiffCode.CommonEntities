@@ -1,4 +1,4 @@
-﻿using DiffCode.CommonEntities.Interfaces;
+﻿using DiffCode.CommonEntities.Enums;
 using System.Diagnostics;
 using System.Numerics;
 
@@ -14,18 +14,32 @@ namespace DiffCode.CommonEntities.Abstractions;
 [DebuggerDisplay("{DisplayAs}")]
 public abstract record BaseMeasurement<T, U, E> : IMeasurement<T, U, E> where T : INumberBase<T> where U : IUnits<U, E> where E : struct, Enum
 {
-  protected BaseMeasurement(T val, U measure)
+  protected BaseMeasurement(U measure)
   {
-    Value = val;
     Measure = measure;
   }
+
+  protected BaseMeasurement(U measure, T val)
+  {
+    Measure = measure;
+    Value = val;
+  }
+
 
 
 
   /// <summary>
   /// <inheritdoc/>
   /// </summary>
-  public T Value { get; }
+  /// <param name="gCase"></param>
+  /// <returns></returns>
+  public string this[GCase gCase] => Cases.FirstOrDefault(f => f.GCase.Equals(gCase))?.Text;
+
+
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  public T Value { get; set; } = default;
 
   /// <summary>
   /// <inheritdoc/>
@@ -37,6 +51,28 @@ public abstract record BaseMeasurement<T, U, E> : IMeasurement<T, U, E> where T 
   /// </summary>
   public virtual string AsString => $"{Value.ToString()}";
 
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  public abstract List<Case> Cases { get; }
+
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  public abstract Category Category { get; }
+
+
+  public string Nom => this[GCase.NOM];
+  
+  public string Gen => this[GCase.GEN];
+
+  public string Dat => this[GCase.DAT];
+
+  public string Acc => this[GCase.ACC];
+
+  public string Ins => this[GCase.INS];
+
+  public string Loc => this[GCase.LOC];
 
 
   /// <summary>
@@ -58,7 +94,12 @@ public abstract record BaseMeasurement<T, U, E> : IMeasurement<T, U, E> where T 
 
   [DebuggerBrowsable(DebuggerBrowsableState.Never)]
   protected virtual string DisplayAs => $"{Measure.Units}: {Value} {Measure.Short}";
-
-
-  static IMeasurement<T, U, E> IMeasurement<T, U, E>.operator +(IMeasurement<T, U, E> left, IMeasurement<T, U, E> right) => throw new NotImplementedException();
 }
+
+
+
+
+
+
+
+public delegate Func<int, BaseGrammar[]> MeasuresFactory(string str);

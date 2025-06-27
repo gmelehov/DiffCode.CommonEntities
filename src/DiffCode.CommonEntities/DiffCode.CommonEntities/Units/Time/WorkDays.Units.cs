@@ -1,14 +1,11 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Interfaces;
-
-namespace DiffCode.CommonEntities.Units.Time;
+﻿namespace DiffCode.CommonEntities.Units.Time;
 
 /// <summary>
 /// Единица измерения: рабочий день.
 /// </summary>
-public record WorkDay : TimeUnits
+internal record WorkDay : TimeUnits
 {
-  public WorkDay() : base(TimeMeasure.Unit.WorkDay, "рабочий день", "раб. дн.", "раб. дн.")
+  public WorkDay() : base(TimeUnits.Unit.WorkDay, "рабочий день", "раб. дн.", "раб. дн.")
   {
     
   }

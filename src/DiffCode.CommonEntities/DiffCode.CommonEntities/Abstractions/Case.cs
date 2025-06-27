@@ -29,21 +29,21 @@ public abstract record Case
 
 
 
-  public static NOM NOM(string text) => new NOM(text);
+  public static NOM NOM(string text) => new(text);
 
 
-  public static GEN GEN(string text) => new GEN(text);
+  public static GEN GEN(string text) => new(text);
 
   
-  public static DAT DAT(string text) => new DAT(text);
+  public static DAT DAT(string text) => new(text);
 
 
-  public static ACC ACC(string text) => new ACC(text);
+  public static ACC ACC(string text) => new(text);
   
   
-  public static INS INS(string text) => new INS(text);
+  public static INS INS(string text) => new(text);
   
   
-  public static LOC LOC(string text) => new LOC(text);
+  public static LOC LOC(string text) => new(text);
 
 }

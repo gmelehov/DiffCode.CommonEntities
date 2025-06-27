@@ -1,15 +1,34 @@
-﻿using System.Numerics;
-
-namespace DiffCode.CommonEntities.Units.Time;
+﻿namespace DiffCode.CommonEntities.Abstractions;
 
 /// <summary>
 /// <para>Время.</para>
 /// </summary>
-public static class TimeMeasure
+public abstract record TimeUnits : BaseUnits<TimeUnits, TimeUnits.Unit>
 {
+  protected TimeUnits(TimeUnits.Unit units, string name, string shortName, string symbol) : base(units, name)
+  {
+    Short = shortName;
+    Symbol = symbol;
+  }
 
 
-  public static CalendDays<T> CalendDays<T>(this T val) where T : INumber<T> => new(val);
+
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  public override string Short { get; }
+
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  public override string Symbol { get; }
+
+
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  public override IUnits<TimeUnits, TimeUnits.Unit> FrUnits => null;
+
 
 
 
@@ -59,4 +78,5 @@ public static class TimeMeasure
     /// </summary>
     Year
   }
+
 }

@@ -2,6 +2,7 @@
 using DiffCode.CommonEntities.Enums;
 using System.Diagnostics;
 
+
 namespace DiffCode.CommonEntities.Abstractions;
 
 /// <summary>
@@ -22,6 +23,7 @@ public abstract record BaseGrammar
     IsAnimate = isAnim;
     Cases = new List<Case>(6) { nom, gen, dat, acc, ins, loc };
   }
+
 
 
 

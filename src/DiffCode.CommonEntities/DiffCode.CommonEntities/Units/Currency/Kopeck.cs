@@ -1,6 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using DiffCode.CommonEntities.Interfaces;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 
 namespace DiffCode.CommonEntities.Units.Currency;
@@ -8,9 +6,9 @@ namespace DiffCode.CommonEntities.Units.Currency;
 /// <summary>
 /// Единица измерения: копейка.
 /// </summary>
-public record Kopeck : CurrencyUnits
+internal record Kopeck : CurrencyUnits
 {
-  public Kopeck() : base(CurrencyMeasure.Unit.Kopeck, "копейка", "коп.", "коп.")
+  public Kopeck() : base(CurrencyUnits.Unit.Kopeck, "копейка", "коп.", "коп.")
   {
     
   }
@@ -21,7 +19,7 @@ public record Kopeck : CurrencyUnits
   /// <summary>
   /// <inheritdoc/>
   /// </summary>
-  public override IUnits<CurrencyUnits, CurrencyMeasure.Unit> FrUnits => null;
+  public override IUnits<CurrencyUnits, CurrencyUnits.Unit> FrUnits => null;
 
   /// <summary>
   /// <inheritdoc />

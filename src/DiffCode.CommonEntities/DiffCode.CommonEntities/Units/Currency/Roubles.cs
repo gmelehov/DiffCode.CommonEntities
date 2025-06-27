@@ -1,6 +1,4 @@
-﻿using DiffCode.CommonEntities.Abstractions;
-using System.Diagnostics;
-using System.Numerics;
+﻿using System.Diagnostics;
 
 
 namespace DiffCode.CommonEntities.Units.Currency;
@@ -9,23 +7,30 @@ namespace DiffCode.CommonEntities.Units.Currency;
 /// Значение в рублях.
 /// </summary>
 [DebuggerDisplay("{DisplayAs}")]
-public record Roubles : Currency<decimal>
+public record Roubles : BaseCurrency, IWithGrammarCases
 {
-  public Roubles(decimal value) : base(value, new Rouble())
+  public Roubles() : base(new Rouble())
   {
-    Kopecks = Math.Round(1 / Measure.FrUnits.Ratio.Value * FractionalPart, 0).Kopecks();
+    
+  }
+
+  public Roubles(decimal val) : base(new Rouble(), val)
+  {
+    
+  }
+
+  public Roubles(decimal val, CasesFactory casesFactory) : base(new Rouble(), val, casesFactory)
+  {
+    
   }
 
 
 
-
-  
-
-
-  public Kopecks Kopecks { get; }
-
-
-  [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-  protected override string DisplayAs => $"{Measure.Units}: {WholePart} {Measure.Short} {Kopecks.Value} {Kopecks.Measure.Short}";
+  /// <summary>
+  /// Фабрика для создания значений с единицей измерения <see cref="CurrencyUnits.Unit.Rouble"/>.
+  /// </summary>
+  /// <param name="val">Количество единиц измерения.</param>
+  /// <returns></returns>
+  public delegate Roubles Factory(decimal val);
 
 }

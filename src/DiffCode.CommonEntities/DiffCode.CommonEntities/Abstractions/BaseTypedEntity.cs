@@ -1,8 +1,6 @@
 ﻿using DiffCode.CommonEntities.Cases;
 using DiffCode.CommonEntities.Enums;
 using DiffCode.CommonEntities.Extensions;
-using DiffCode.CommonEntities.Interfaces;
-using DiffCode.CommonEntities.Services;
 using System.Diagnostics;
 
 namespace DiffCode.CommonEntities.Abstractions;
@@ -57,6 +55,11 @@ public abstract record BaseTypedEntity : INamedWithGrammarCases, IWithSymbol
 
 
 
+  /// <summary>
+  /// <inheritdoc/>
+  /// </summary>
+  /// <param name="gCase"></param>
+  /// <returns></returns>
   public string this[GCase gCase] => Cases.FirstOrDefault(f => f.GCase.Equals(gCase))?.Text ?? Full;
 
 
@@ -106,5 +109,19 @@ public abstract record BaseTypedEntity : INamedWithGrammarCases, IWithSymbol
       return ret;
     }
   }
+
+
+
+  public string Nom => this[GCase.NOM];
+
+  public string Gen => this[GCase.GEN];
+
+  public string Dat => this[GCase.DAT];
+
+  public string Acc => this[GCase.ACC];
+
+  public string Ins => this[GCase.INS];
+
+  public string Loc => this[GCase.LOC];
 
 }

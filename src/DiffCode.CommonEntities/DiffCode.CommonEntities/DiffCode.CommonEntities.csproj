@@ -6,11 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Units\Part\" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.2" />
+    <PackageReference Include="OneOf" Version="3.0.271" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="OneOf" Version="3.0.271" />
+    <Using Include="DiffCode.CommonEntities.Abstractions.Case" Static="true"/>
+    <Using Include="DiffCode.CommonEntities.Abstractions"/>
+    <Using Include="DiffCode.CommonEntities.Interfaces"/>
   </ItemGroup>
 
 </Project>
