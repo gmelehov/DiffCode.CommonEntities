@@ -6,15 +6,19 @@
 public enum Arity
 {
   /// <summary>
+  /// Для 0.
+  /// </summary>
+  N = 0,
+  /// <summary>
   /// Единственное число.
   /// </summary>
-  S = 0,
+  S = 1,
   /// <summary>
   /// Множественное число.
   /// </summary>
-  P = 1,
+  P = 2,
   /// <summary>
   /// Множественное число для числительных на 2,3,4.
   /// </summary>
-  PSpec = 2,
+  PSpec = 3,
 }

@@ -35,7 +35,7 @@ var spellFunc = sp.GetRequiredService<Func<int, NumGrammar>>();
 var pctsFactory = sp.GetRequiredService<Percents.Factory>();
 var partsFactory = sp.GetRequiredService<BasePart.CasesFactory>();
 
-decimal rblval = 135521.83M;
+decimal rblval = 0.0M;
 //var rbl = new Roubles().Build(scope) with { Value = rblval };
 
 //var sp1 = spellFunc((int)rbl.WholePart);
@@ -125,7 +125,7 @@ var instFactory = sp.GetRequiredService<Instances.Factory>();
 var instances = instFactory(3);
 
 
-currr.Value += 34900;
+//currr.Value += 34900;
 
 
 

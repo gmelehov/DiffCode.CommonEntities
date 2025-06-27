@@ -18,7 +18,7 @@ public record NumGrammar : BaseGrammar
 
 
 
-  public override PartOfSpeech PoS => PartOfSpeech.Unknown;
+  public override PartOfSpeech PoS => PartOfSpeech.Noun;
 
 
   public override NamePart NamePart => NamePart.NONE;
