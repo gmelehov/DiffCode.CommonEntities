@@ -9,7 +9,7 @@ namespace DiffCode.CommonEntities.Abstractions;
 /// Базовая модель личных данных (ФИО, пол).
 /// </summary>
 [DebuggerDisplay("{DisplayAs}")]
-public abstract record BasePersonName : INamedWithGrammarCases
+public abstract record BasePersonName : INamedWithGrammarCases, IEquatable<BasePersonName>
 {
   [DebuggerBrowsable(DebuggerBrowsableState.Never)]
   protected string _input;
