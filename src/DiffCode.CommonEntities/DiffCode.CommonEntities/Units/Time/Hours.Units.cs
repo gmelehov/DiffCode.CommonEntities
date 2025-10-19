@@ -1,4 +1,11 @@
-﻿namespace DiffCode.CommonEntities.Units.Time;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DiffCode.CommonEntities.Units.Time;
+
 
 /// <summary>
 /// Единица измерения: час.

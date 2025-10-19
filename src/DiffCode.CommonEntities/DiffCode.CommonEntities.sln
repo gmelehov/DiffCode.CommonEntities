@@ -8,6 +8,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsApp", "ConsApp\ConsApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffCode.CommonEntities.GrammarServices", "..\..\..\DiffCode.CommonEntities.GrammarServices\src\DiffCode.CommonEntities.GrammarServices\DiffCode.CommonEntities.GrammarServices.csproj", "{F7772B84-347D-4C20-7A34-1A9FDBEA0C28}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PSScripts", "PSScripts", "{D965CDFF-70E2-3EBA-3549-31FC626F0D0E}"
+	ProjectSection(SolutionItems) = preProject
+		build.ps1 = build.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <VersionPrefix>1.0.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.2" />
-    <PackageReference Include="OneOf" Version="3.0.271" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Using Include="DiffCode.CommonEntities.Abstractions.Case" Static="true"/>
-    <Using Include="DiffCode.CommonEntities.Abstractions"/>
-    <Using Include="DiffCode.CommonEntities.Interfaces"/>
+    <Using Include="DiffCode.CommonEntities.Abstractions.Case" Static="true" />
+    <Using Include="DiffCode.CommonEntities.Abstractions" />
+    <Using Include="DiffCode.CommonEntities.Interfaces" />
   </ItemGroup>
 
 </Project>
